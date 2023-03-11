@@ -1,3 +1,4 @@
-﻿
-using var game = new Not_Celeste.Game1();
+// Entry point
+
+var game = new Not_Celeste.Game();
 game.Run();
