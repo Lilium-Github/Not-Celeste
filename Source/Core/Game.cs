@@ -2,7 +2,7 @@ namespace Not_Celeste.Core;
 
 internal class Game
 {
-	public Dictionary<Type, List<IComponent>> ECS;
+	public Dictionary<IComponent, List<IComponent?>> ECS = new();
 
 	public void Run()
 	{
