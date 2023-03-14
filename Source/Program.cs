@@ -1,4 +1,4 @@
 // Entry point
 
-var game = new Not_Celeste.Core.Game();
+var game = new Game();
 game.Run();
