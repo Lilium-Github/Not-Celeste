@@ -7,4 +7,6 @@ global using SFML.Graphics;
 global using SFML.Audio;
 
 global using Not_Celeste.Core;
+global using Not_Celeste.Component;
+global using Not_Celeste.System;
 global using Not_Celeste.ComponentCore;
