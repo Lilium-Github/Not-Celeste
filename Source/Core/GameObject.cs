@@ -7,7 +7,7 @@ internal class GameObject {
 	// Members (these should all be private)
 	private GameObject? _parent = null;
 	private readonly List<GameObject> _children = new();
-	private readonly Dictionary<Type, IComponent> _components = new();
+	private readonly Dictionary<Type, Component> _components = new();
 
 	//////// Properties //////
 	public GameObject? Parent {
@@ -26,13 +26,13 @@ internal class GameObject {
 	/// Returns a COPY of the GameObject's internal component dictionary. To access or alter components, index into the GameObject directly.
 	/// </summary>
 	/// <value></value>
-	public Dictionary<Type, IComponent> Components {
+	public Dictionary<Type, Component> Components {
 		get {
 			return new(_components);
 		}
 	}
 
-	public IComponent this[Type i] {
+	public Component this[Type i] {
 		get {
 			return _components[i];
 		}
@@ -77,7 +77,7 @@ internal class GameObject {
 	/// Registers the given component to the current instance
 	/// </summary>
 	/// <param name="component"></param>
-	public void AddComponent(IComponent component) {
+	public void AddComponent(Component component) {
 		if (_components.ContainsKey(component.GetType())) {
 			throw new ArgumentException("Attempted to add a component that is already registered!");
 		}
@@ -90,7 +90,7 @@ internal class GameObject {
 	/// Unegisters the given component from the current instance
 	/// </summary>
 	/// <param name="component"></param>
-	public void RemoveComponent(IComponent component) {
+	public void RemoveComponent(Component component) {
 		if (!_components.ContainsKey(component.GetType())) {
 			throw new ArgumentException("Attempted to remove a component that is not registered!");
 		} else {

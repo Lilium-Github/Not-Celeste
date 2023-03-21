@@ -2,24 +2,30 @@ namespace Not_Celeste.Core;
 
 internal class Game
 {
-	private readonly List<ISystem> _systems = new();
+	private readonly List<System> _systems = new();
 
-	public Game()
-	{
-		_systems.Add(new TestSystem());
+	public Game() {
+		GraphicsDevice.Window = new(new(), "Not_Celeste");
 
-		SceneTree.SceneRoot.AddComponent(new TestComponent() { TestInt = 0 });
-		SceneTree.SceneRoot.AddComponent(new OtherTestComponent() { TestIncrement = 1 });
-
-		Console.WriteLine("Initialization Complete");
+		GraphicsDevice.Window.Closed += OnClose;
 	}
 
-	public void Run()
-	{
-		for ( int i = 0; i < 10; i++) {
-			foreach (ISystem j in _systems) {
-				j.Process(0);
+	public void Run() {
+		var clock = new SFML.System.Clock();
+
+		while (GraphicsDevice.Window.IsOpen) {
+			var delta = clock.Restart().AsSeconds();
+
+			foreach (System system in _systems) {
+				system.Process(delta);
 			}
+		}
+	}
+
+	public void OnClose(object? sender, EventArgs e)
+	{
+		if (sender is Window window) {
+			window.Close();
 		}
 	}
 }
