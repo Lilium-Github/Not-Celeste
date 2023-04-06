@@ -2,7 +2,7 @@ namespace Not_Celeste.Core;
 
 internal class Game
 {
-	private readonly List<System> _systems = new();
+	private readonly List<GameSystem> _gameSystems = new();
 
 	public Game() {
 		GraphicsDevice.Window = new(new(), "Not_Celeste");
@@ -16,8 +16,8 @@ internal class Game
 		while (GraphicsDevice.Window.IsOpen) {
 			var delta = clock.Restart().AsSeconds();
 
-			foreach (System system in _systems) {
-				system.Process(delta);
+			foreach (GameSystem gameSystem in _gameSystems) {
+				gameSystem.Process(delta);
 			}
 		}
 	}
