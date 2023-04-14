@@ -9,3 +9,4 @@ global using SFML.Audio;
 global using Not_Celeste.Core;
 global using Not_Celeste.Components;
 global using Not_Celeste.GameSystems;
+global using Not_Celeste.Utils;
