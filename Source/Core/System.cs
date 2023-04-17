@@ -1,5 +1,5 @@
 namespace Not_Celeste.Core;
 
-internal abstract class System {
+internal abstract class ISystem {
 	public abstract void Process(double delta);
 }
