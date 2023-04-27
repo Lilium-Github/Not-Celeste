@@ -5,9 +5,16 @@ internal class Game
 	private readonly List<GameSystem> _gameSystems = new();
 
 	public Game() {
-		GraphicsDevice.Window = new(new(), "Not_Celeste");
+		_gameSystems.Add(new DrawCollisionBos());
+		GraphicsDevice.Window = new(new(800,800), "Not_Celeste");
 
 		GraphicsDevice.Window.Closed += OnClose;
+		GraphicsDevice.Window.KeyPressed +=(args,eve)=>{
+			if(eve.Code == Keyboard.Key.Escape){
+				GraphicsDevice.Window.Close();
+			}
+
+		};
 	}
 
 	public void Run() {
@@ -15,10 +22,11 @@ internal class Game
 
 		while (GraphicsDevice.Window.IsOpen) {
 			var delta = clock.Restart().AsSeconds();
-
 			foreach (GameSystem gameSystem in _gameSystems) {
 				gameSystem.Process(delta);
+
 			}
+
 		}
 	}
 
