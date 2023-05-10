@@ -13,11 +13,33 @@ internal struct Line {
 		var mySlope = (EndPoint.Y - StartPoint.Y) / ((EndPoint.X - StartPoint.X));
 		var targetSlope = (target.EndPoint.Y - target.StartPoint.Y) / ((target.EndPoint.X - target.StartPoint.X));
 
-		var myYIntercept = StartPoint.Y - (StartPoint.X * mySlope);
-		var targetYIntercept = target.StartPoint.Y - (target.StartPoint.X * targetSlope);
+		if (!float.IsRealNumber(mySlope) && !float.IsRealNumber(targetSlope)) return null;
 
-		var collideX = (myYIntercept - targetYIntercept) / (targetSlope - mySlope);
-		var collideY = mySlope * collideX + myYIntercept;
+		float myYIntercept;
+		float targetYIntercept;
+
+		float collideX;
+		float collideY;
+		
+		if (!float.IsRealNumber(mySlope)) {
+			targetYIntercept = target.StartPoint.Y - (target.StartPoint.X * targetSlope);
+
+			collideX = StartPoint.X;
+			collideY = targetSlope * collideX + targetYIntercept;
+		} else if (!float.IsRealNumber(targetSlope)) {
+			myYIntercept = StartPoint.Y - (StartPoint.X * mySlope);
+
+			collideX = target.StartPoint.X;
+			collideY = mySlope * collideX + myYIntercept;
+		} else if (mySlope == targetSlope) {
+			return null;
+		} else {
+			myYIntercept = StartPoint.Y - (StartPoint.X * mySlope);
+			targetYIntercept = target.StartPoint.Y - (target.StartPoint.X * targetSlope);
+
+			collideX = (myYIntercept - targetYIntercept) / (targetSlope - mySlope);
+			collideY = mySlope * collideX + myYIntercept;
+		}
 
 		if (StartPoint.X > EndPoint.X) {
 			if (collideX < StartPoint.X && collideX > EndPoint.X) return null;
