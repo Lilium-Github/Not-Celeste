@@ -38,5 +38,6 @@ internal abstract class CollisionShape {
 
 			}
 		}
+		return null;
 	}
 }
